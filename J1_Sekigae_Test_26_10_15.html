@@ -69,13 +69,13 @@
     <script>
     var irenai = [];       
     var getElement = [[],[],[],[],[],[],[]];
-     var c = [];
+     var c = [];        //その席に座る出席番号
      var gyou = 7;
      //var finalgyou = 6;
      var line = 6;
      var finalline=4;
      let shufflenum = 1;
-     var FNum = [];
+     var FNum = [];        //目が悪い人の番号
      var FinalNumber = 41;
      var spliceNum;
      var HanasuNum = [];
@@ -246,7 +246,7 @@ initialize();
                         if(j==Fnumpkeep[forFNumj])
                         {
                             c[i+j]=FNum[Fnumpkeep];
-                            document.getElementById("c0-0").textContent = c[i+j];
+                            document.getElementById(`c0-{j}`).textContent = c[i+j];
                         }
                     }    
                 }
