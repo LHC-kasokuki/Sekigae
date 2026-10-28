@@ -69,7 +69,7 @@
         <script>
             var irenai = [];       
             var getElement = [[],[],[],[],[],[],[]];
-            var c = [];        //その席に座る出席番号
+            var c = [[],[],[],[],[],[]];        //その席に座る出席番号
             var gyou = 7;
             //var finalgyou = 6;
             var line = 6;
@@ -326,7 +326,6 @@
                     document.getElementById("resultFinal").value = Num[FinalNumber-1];
                     FinalNum.value = null; 
                 }
-
             });
             Teacherbutton.addEventListener("click",function(e)
             {
