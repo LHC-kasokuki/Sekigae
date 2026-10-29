@@ -130,7 +130,7 @@
             function initialize()
             {
                 //41個分の番号のテーブルを埋める
-                for(let i = 0;i<40;i++)
+                for(let i = 0;i<41;i++)
                 {
                     c.push(0);
                 }
@@ -140,9 +140,10 @@
                     for(let j = 0;j<line;j++)
                     {
                         getElement[i][j] = document.getElementById(`c${i}-${j}`);
-                        if(i == gyou-1 && j == finalline-1)
+                        if(i==0||i==gyou-1)
                         {
-                            break;
+                            if(j == finalline-1)
+                                break;
                         }
                     }
                 }
@@ -205,9 +206,6 @@
                 }
                 else
                 {
-
-
-
                     //for(let i = 0; i < shufflenum; i++)
                     //{ 
 
@@ -236,9 +234,9 @@
                         while(Fnumpkeep.includes(Fnump))
                         {
                             Fnump=Math.floor(Math.random()*6);
+                            Fnumpkeep[i]=Fnump;
                         }
                         //FrontCAd[i][0]=FNum[i];
-                        Fnumpkeep[i]=Fnump;
                     }
 
                     let forFNumj=0;
@@ -252,7 +250,7 @@
                                 {
                                     c[i+j]=FNum[Fnumpkeep];
                                     getElement[i][j].textContent = c[i+j];
-                                    await sleep(500);
+                                    await sleep(100);
                                     forFNumj++;
                                 }
                                 else
