@@ -69,7 +69,7 @@
         <script>
             var irenai = [];       
             var getElement = [[],[],[],[],[],[],[]];
-            var c = [[],[],[],[],[],[]];        //その席に座る出席番号
+            var c = [[],[],[],[],[],[],[]];        //その席に座る出席番号
             var gyou = 7;
             //var finalgyou = 6;
             var line = 6;
@@ -98,7 +98,8 @@
             const Teacherpass = document.getElementById("teacherpass");
             console.log(Numberbutton);
             resultForm.value = shufflenum;
-
+            const resultNumberForm = document.getElementById("resultNumber");
+            const NumberForm = document.getElementById("NumberForm");
             //前の席の人の番号入力
             Numberbutton.addEventListener("click", function(e) 
             {
@@ -109,30 +110,24 @@
                 else
                 {
                     e.preventDefault();
-                    var NumberForm = document.getElementById("NumberForm");
+                    
                     FNum.push(parseInt(NumberForm.value));
                     //console.log(parseInt(NumberForm));
                     console.log(FNum);
                     console.log(FNum.length);
-                    var resultNumberForm = document.getElementById("resultNumber");
+                    
                     resultNumberForm.value = FNum;
                     NumberForm.value = null; 
                 }
 
             });
 
-             /*irenai.push(0);
-             irenai.push(19);
-             irenai.push(22);
-             irenai.push(24);
-             irenai.push(HanasuNum[0]);*/
 
             function initialize()
             {
                 //41個分の番号のテーブルを埋める
                 for(let i = 0;i<40;i++)
                 {
-                    
                     c.push(0);
                 }
             
@@ -209,10 +204,14 @@
                 {
                     //for(let i = 0; i < shufflenum; i++)
                     //{ 
-
+                    //初期化
+                    initialize();
+                    distance = 0;
+                    Nankaime = 0;
                     irenai.length = 0;
                     irenai.push(0);
                     irenai.push(36);
+
                     for(let i = 0; i < FNum.length;i++)
                     {
                         irenai.push(FNum[i]);
@@ -220,23 +219,22 @@
                     // irenai.push(HanasuNum[0]);
                     // irenai.push(HanasuNum[1]);
 
-                    //初期化
-                    initialize();
-                    distance = 0;
-                    Nankaime = 0;
+                    
+
 
                     //先に前の席に座る人のランダムな配置をするので、ランダムに決まる席の場所を保存しておく。後のループ処理で使う。
                     //1つ目:出席番号　2つ目:席の番号
                     //let FrontCAd = Array.from({ length: FNum.length }, () => Array(2).fill(0));
                     for(let i = 0;i<FNum.length;i++)
                     {
-                        Fnump=Math.floor(Math.random()*6);
+                        Fnump=Math.floor(Math.random()*5);
                         Fnumpkeep[i]=Fnump;
                         while(Fnumpkeep.includes(Fnump))
                         {
-                            Fnump=Math.floor(Math.random()*6);
+                            Fnump=Math.floor(Math.random()*5);
                             Fnumpkeep[i]=Fnump;
                         }
+                        
                         //FrontCAd[i][0]=FNum[i];
                     }
 
@@ -249,14 +247,30 @@
                             {
                                 if(j==Fnumpkeep[forFNumj])
                                 {
-                                    c[i+j]=FNum[Fnumpkeep];
-                                    getElement[i][j].textContent = c[i+j];
+                                    c[i][j]=FNum[Fnumpkeep];
+                                    getElement[i][j].textContent = c[i][j];
                                     await sleep(100);
                                     forFNumj++;
                                 }
                                 else
                                 {
+                                    spliceNum = Math.floor( Math.random() * (FinalNumber -Nankaime));
+                                    console.log(spliceNum);
+                                    c[i][j] = Num[spliceNum];
+                                    /*while(irenai.includes(c00))
+                                    {
+                                        spliceNum = Math.floor( Math.random() * (FinalNumber -Nankaime));
+                                        console.log(spliceNum);
+                                        c00 = Num[spliceNum];
+                                    }*/
+                                    Num.splice(spliceNum,1);
+                                    console.log(Num); 
+                                    getElement[i][j].textContent = c[i][j];
+                                    //irenai.push(c00);
+                                    distance += 15;
+                                    Nankaime++;
 
+                                    await sleep(500);
                                 }
                             }    
                         }
