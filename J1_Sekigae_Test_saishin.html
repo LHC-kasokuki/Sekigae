@@ -67,7 +67,7 @@
     <p><button id="teachermode" type="button" border="10px">Teachermode</button></p>
     <input id="teacherpass"type="password" placeholder="password"></form>
         <script>
-            var irenai = [];       
+            var irenai = [];
             var getElement = [[],[],[],[],[],[],[]];
             var c = [[],[],[],[],[],[]];        //その席に座る出席番号
             var gyou = 7;
@@ -132,7 +132,6 @@
                 //41個分の番号のテーブルを埋める
                 for(let i = 0;i<40;i++)
                 {
-                    
                     c.push(0);
                 }
             
@@ -180,6 +179,7 @@
 
                     irenai.length = 0;
                     irenai.push(0);
+                    irenai.push(5);
                     irenai.push(36);
                     for(let i = 0; i < FNum.length;i++)
                     {
@@ -192,22 +192,24 @@
                     initialize();
                     distance = 0;
                     Nankaime = 0;
-
+                    console.log("前の人の場所決定前");
                     //先に前の席に座る人のランダムな配置をするので、ランダムに決まる席の場所を保存しておく。後のループ処理で使う。
                     //1つ目:出席番号　2つ目:席の番号
                     //let FrontCAd = Array.from({ length: FNum.length }, () => Array(2).fill(0));
+
                     for(let i = 0;i<FNum.length;i++)
                     {
                         Fnump=Math.floor(Math.random()*6);
-                        Fnumpkeep[i]=Fnump;
-                        while(Fnumpkeep.includes(Fnump))
+                        
+                        while(Fnumpkeep.includes(Fnumpkeep))
                         {
                             Fnump=Math.floor(Math.random()*6);
-                            Fnumpkeep[i]=Fnump;
                         }
+                        Fnumpkeep[i]=Fnump;
                         //FrontCAd[i][0]=FNum[i];
                     }
-
+                    console.log("前の人の場所決定");
+                    
                     let forFNumj=0;
                     for(let i = 0;i<gyou;i++)
                     {                    
