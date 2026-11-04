@@ -85,7 +85,7 @@
             var Fnump=0;
             var Fnumpkeep=[];
             Fnumpkeep[10]=0;
-            //Teacher = true;
+            Teacher = true;
 
             var distance;
             var Nankaime = 0;
@@ -142,8 +142,8 @@
                         getElement[i][j] = document.getElementById(`c${i}-${j}`);
                         if(i==0||i==gyou-1)
                         {
-                            if(j == finalline-1)
-                                break;
+                            if(j == line-1)
+                                continue;
                         }
                     }
                 }
@@ -213,27 +213,66 @@
                     let forFNumj=0;
                     for(let i = 0;i<gyou;i++)
                     {                    
-                        if(i==0)
+                        if(i==0||i==gyou-1)
                         {
                             for(let j = 0;j<line-1;j++)
                             {
-                                if(j==Fnumpkeep[forFNumj])
+                                if(j==Fnumpkeep[forFNumj]&&i==0)
                                 {
-                                    c[i+j]=FNum[Fnumpkeep];
-                                    getElement[i][j].textContent = c[i+j];
+                                    c[i][j]=FNum[Fnumpkeep];
+                                    getElement[i][j].textContent = c[i][j];
                                     await sleep(100);
                                     forFNumj++;
                                 }
                                 else
                                 {
+                                    spliceNum = Math.floor( Math.random() * (FinalNumber -Nankaime));
+                                    console.log(spliceNum);
+                                    c[i][j] = Num[spliceNum];
+                                    /*while(irenai.includes(c00))
+                                    {
+                                        spliceNum = Math.floor( Math.random() * (FinalNumber -Nankaime));
+                                        console.log(spliceNum);
+                                        c00 = Num[spliceNum];
+                                    }*/
+                                    Num.splice(spliceNum,1);
+                                    console.log(Num); 
+                                    getElement[i][j].textContent = c[i][j];
+                                    //irenai.push(c00);
+                                    distance += 15;
+                                    Nankaime++;
 
+                                    await sleep(500);
                                 }
                             }    
+                        }
+                        else
+                        {
+                            for(let k = 0;k<line;k++)
+                            {
+                                spliceNum = Math.floor( Math.random() * (FinalNumber -Nankaime));
+                                console.log(spliceNum);
+                                c[i][j] = Num[spliceNum];
+                                /*while(irenai.includes(c00))
+                                {
+                                    spliceNum = Math.floor( Math.random() * (FinalNumber -Nankaime));
+                                    console.log(spliceNum);
+                                    c00 = Num[spliceNum];
+                                }*/
+                                Num.splice(spliceNum,1);
+                                console.log(Num); 
+                                getElement[i][j].textContent = c[i][j];
+                                //irenai.push(c00);
+                                distance += 15;
+                                Nankaime++;
+                                await sleep(500);
+                            }
+                            
                         }
 
                     }
 
-                    spliceNum = Math.floor( Math.random() * (FinalNumber -Nankaime));
+                    /*spliceNum = Math.floor( Math.random() * (FinalNumber -Nankaime));
                     console.log(spliceNum);
                     c00 = Num[spliceNum];
                     while(irenai.includes(c00))
@@ -249,7 +288,7 @@
                     distance += 15;
                     Nankaime++;
 
-                    await sleep(500);
+                    await sleep(500);*/
                 }
 
 
