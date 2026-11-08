@@ -85,6 +85,7 @@
             var Fnump=0;
             var Fnumpkeep=[];
             Fnumpkeep[10]=0;
+            Fnumpkeep[11]=5;
             Teacher = true;
 
             var distance;
@@ -100,7 +101,7 @@
             resultForm.value = shufflenum;
 
             //前の席の人の番号入力
-            Numberbutton.addEventListener("click", function(e) 
+            Numberbutton.addEventListener("click", function(e)
             {
                 if(!Teacher)
                 {
@@ -132,7 +133,7 @@
                 //41個分の番号のテーブルを埋める
                 for(let i = 0;i<40;i++)
                 {
-                    c.push(0);
+                    //c.push(0);
                 }
             
                 for(let i = 0;i<gyou;i++)
@@ -195,8 +196,9 @@
                     console.log("前の人の場所決定前");
                     //先に前の席に座る人のランダムな配置をするので、ランダムに決まる席の場所を保存しておく。後のループ処理で使う。
                     //1つ目:出席番号　2つ目:席の番号
-                    //let FrontCAd = Array.from({ length: FNum.length }, () => Array(2).fill(0));
-
+                    let FrontCAd = Array.from({ length: FNum.length }, () => Array(2).fill(0));
+                    //let Fnumhandle=[];
+                    
                     for(let i = 0;i<FNum.length;i++)
                     {
                         Fnump=Math.floor(Math.random()*6);
@@ -206,28 +208,73 @@
                             Fnump=Math.floor(Math.random()*6);
                         }
                         Fnumpkeep[i]=Fnump;
-                        //FrontCAd[i][0]=FNum[i];
+                        FrontCAd[i][1]=Fnump;
+                        FrontCAd[i][0]=FNum[i];
+                        console.log(`${i}個目　${FrontCAd[i][1]}　${FrontCAd[i][0]}`);
+                        
                     }
                     console.log("前の人の場所決定");
                     
                     let forFNumj=0;
+                    let cad=0;
+                    let arcount=0;
                     for(let i = 0;i<gyou;i++)
                     {                    
                         if(i==0||i==gyou-1)
                         {
+                            if(i==0)
+                            {
+                                for(let l=1;l<line-1;l++)
+                                {  
+                                    for(let p=0;p<FNum.length;p++)
+                                    {
+                                        if(FrontCAd[p][1]==l)
+                                        {
+                                            cad=p;
+                                        }
+                                    }
+                                    if(FrontCAd[cad][1]==l)
+                                    {
+                                        c[i][l]=FrontCAd[cad][0];
+                                        console.log(`c[${i}][${l}]=${FrontCAd[cad][0]}`);
+                                        if(forFNumj==0)
+                                        {
+                                            console.log(`${forFNumj}個目　${FrontCAd[cad][0]-1}`);
+                                            Num.splice(FrontCAd[cad][0]-1,1);
+                                        }
+                                        else
+                                        {
+                                            for(let o = 0;o<cad;o++)
+                                            {
+                                                if(FNum[o]<FrontCAd[cad][0])
+                                                {
+                                                    arcount++;
+                                                }
+                                            }
+                                            console.log(`${forFNumj}個目　${FrontCAd[cad][0]-arcount-1}`);
+                                            Num.splice(FrontCAd[cad][0]-arcount-1,1);
+                                        }
+                                        arcount=0;
+                                        forFNumj++;
+                                        getElement[i][l].textContent = c[i][l];
+                                        await sleep(500);
+                                        Nankaime++;
+                                    }
+                                }   
+                                Fnumpkeep.splice(10,1);
+                            }   
+                            
                             for(let j = 0;j<line-1;j++)
                             {
-                                if(j==Fnumpkeep[forFNumj]&&i==0)
+                                
+                                if(Fnumpkeep.includes(j)&&i==0)
                                 {
-                                    c[i][j]=FNum[Fnumpkeep];
-                                    getElement[i][j].textContent = c[i][j];
-                                    await sleep(100);
-                                    forFNumj++;
+                                    
                                 }
                                 else
                                 {
-                                    spliceNum = Math.floor( Math.random() * (FinalNumber -Nankaime));
-                                    console.log(spliceNum);
+                                    spliceNum = Math.floor( Math.random() * (FinalNumber -Nankaime-1));
+                                    console.log(`c[${i}][${j}]=${spliceNum}番目のNum→${Num[spliceNum]}`);
                                     c[i][j] = Num[spliceNum];
                                     /*while(irenai.includes(c00))
                                     {
@@ -235,7 +282,7 @@
                                         console.log(spliceNum);
                                         c00 = Num[spliceNum];
                                     }*/
-                                    Num.splice(spliceNum,1);
+                                    Num.splice(c[i][j],1);
                                     console.log(Num); 
                                     getElement[i][j].textContent = c[i][j];
                                     //irenai.push(c00);
@@ -251,8 +298,8 @@
                             for(let k = 0;k<line;k++)
                             {
                                 spliceNum = Math.floor( Math.random() * (FinalNumber -Nankaime));
-                                console.log(spliceNum);
-                                c[i][j] = Num[spliceNum];
+                                console.log(`c[${i}][${k}]=${spliceNum}番目のNum→${Num[spliceNum]}`);
+                                c[i][k] = Num[spliceNum];
                                 /*while(irenai.includes(c00))
                                 {
                                     spliceNum = Math.floor( Math.random() * (FinalNumber -Nankaime));
@@ -261,7 +308,7 @@
                                 }*/
                                 Num.splice(spliceNum,1);
                                 console.log(Num); 
-                                getElement[i][j].textContent = c[i][j];
+                                getElement[i][k].textContent = c[i][k];
                                 //irenai.push(c00);
                                 distance += 15;
                                 Nankaime++;
