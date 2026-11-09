@@ -99,7 +99,8 @@
             const Teacherpass = document.getElementById("teacherpass");
             console.log(Numberbutton);
             resultForm.value = shufflenum;
-
+            const resultNumberForm = document.getElementById("resultNumber");
+            const NumberForm = document.getElementById("NumberForm");
             //前の席の人の番号入力
             Numberbutton.addEventListener("click", function(e)
             {
@@ -110,45 +111,48 @@
                 else
                 {
                     e.preventDefault();
-                    var NumberForm = document.getElementById("NumberForm");
+                    
                     FNum.push(parseInt(NumberForm.value));
                     //console.log(parseInt(NumberForm));
                     console.log(FNum);
                     console.log(FNum.length);
-                    var resultNumberForm = document.getElementById("resultNumber");
+                    
                     resultNumberForm.value = FNum;
                     NumberForm.value = null; 
                 }
 
             });
 
-             /*irenai.push(0);
-             irenai.push(19);
-             irenai.push(22);
-             irenai.push(24);
-             irenai.push(HanasuNum[0]);*/
 
             function initialize()
             {
                 //41個分の番号のテーブルを埋める
                 for(let i = 0;i<40;i++)
                 {
-                    //c.push(0);
+                    c.push(0);
                 }
             
                 for(let i = 0;i<gyou;i++)
                 {
-                    for(let j = 0;j<line;j++)
+                    for(let j = 0;j<line-1;j++)
                     {
-                        getElement[i][j] = document.getElementById(`c${i}-${j}`);
                         if(i==0||i==gyou-1)
                         {
                             if(j == line-1)
                                 continue;
+                            else
+                            {
+                                getElement[i][j] = document.getElementById(`c${i}-${j}`);
+                            }
+                        }
+                        else
+                        {
+                            getElement[i][j] = document.getElementById(`c${i}-${j}`);
                         }
                     }
                 }
                 Num.length = 0;
+
                 for(let i = 1; i <= FinalNumber;i++)
                 {
                     if(i==36)
@@ -159,7 +163,39 @@
                         Num.push(i);
                     console.log(Num);
                 }
-                
+                /*document.getElementById("c0-0").textContent = c00;
+                document.getElementById("c0-1").textContent = c01;
+                document.getElementById("c0-2").textContent = c02;
+                document.getElementById("c0-3").textContent = c03;
+                document.getElementById("c0-4").textContent = c04;
+                document.getElementById("c0-5").textContent = c05;
+                document.getElementById("c1-0").textContent = c10;
+                document.getElementById("c1-1").textContent = c11;
+                document.getElementById("c1-2").textContent = c12;
+                document.getElementById("c1-3").textContent = c13;
+                document.getElementById("c1-4").textContent = c14;
+                document.getElementById("c1-5").textContent = c15;
+                document.getElementById("c2-0").textContent = c20;
+                document.getElementById("c2-1").textContent = c21;
+                document.getElementById("c2-2").textContent = c22;
+                document.getElementById("c2-3").textContent = c23;
+                document.getElementById("c2-4").textContent = c24;
+                document.getElementById("c2-5").textContent = c25;
+                document.getElementById("c3-0").textContent = c30;
+                document.getElementById("c3-1").textContent = c31;
+                document.getElementById("c3-2").textContent = c32;
+                document.getElementById("c3-3").textContent = c33;
+                document.getElementById("c3-4").textContent = c34;
+                document.getElementById("c3-5").textContent = c35;
+                document.getElementById("c4-0").textContent = c40;
+                document.getElementById("c4-1").textContent = c41;
+                document.getElementById("c4-2").textContent = c42;
+                document.getElementById("c4-3").textContent = c43;
+                document.getElementById("c4-4").textContent = c44;
+                document.getElementById("c4-5").textContent = c45;
+                document.getElementById("c5-0").textContent = c50;
+                document.getElementById("c5-1").textContent = c51;
+                Nankaime = 0;*/
             }
 
             //test
@@ -177,7 +213,10 @@
                 {
                     //for(let i = 0; i < shufflenum; i++)
                     //{ 
-
+                    //初期化
+                    initialize();
+                    distance = 0;
+                    Nankaime = 0;
                     irenai.length = 0;
                     irenai.push(0);
                     irenai.push(5);
@@ -246,7 +285,8 @@
                                         {
                                             for(let o = 0;o<cad;o++)
                                             {
-                                                if(FNum[o]<FrontCAd[cad][0])
+                                                //条件設定ミス
+                                                if(FrontCAd[o][0]<FrontCAd[cad][0])
                                                 {
                                                     arcount++;
                                                 }
@@ -283,7 +323,7 @@
                                         c00 = Num[spliceNum];
                                     }*/
                                     Num.splice(c[i][j],1);
-                                    console.log(Num); 
+                                    console.log(Num);
                                     getElement[i][j].textContent = c[i][j];
                                     //irenai.push(c00);
                                     distance += 15;
@@ -297,7 +337,7 @@
                         {
                             for(let k = 0;k<line;k++)
                             {
-                                spliceNum = Math.floor( Math.random() * (FinalNumber -Nankaime));
+                                spliceNum = Math.floor( Math.random() * (FinalNumber -Nankaime-1));
                                 console.log(`c[${i}][${k}]=${spliceNum}番目のNum→${Num[spliceNum]}`);
                                 c[i][k] = Num[spliceNum];
                                 /*while(irenai.includes(c00))
@@ -307,7 +347,7 @@
                                     c00 = Num[spliceNum];
                                 }*/
                                 Num.splice(spliceNum,1);
-                                console.log(Num); 
+                                console.log(Num);
                                 getElement[i][k].textContent = c[i][k];
                                 //irenai.push(c00);
                                 distance += 15;
@@ -317,7 +357,11 @@
                             
                         }
 
-                    }
+                                await sleep(500);
+                            }
+                        }
+
+                    
 
                     /*spliceNum = Math.floor( Math.random() * (FinalNumber -Nankaime));
                     console.log(spliceNum);
@@ -336,9 +380,7 @@
                     Nankaime++;
 
                     await sleep(500);*/
-                }
-
-
+                
 
             });
             //シャッフル回数
@@ -391,7 +433,7 @@
                     alert("ようこそadmin様");
                     Teacher = true;
                     console.log("teacher");
-                    pass = null;
+                    Teacherpass.value = "";
                 }
                 else
                 {
@@ -399,7 +441,7 @@
                     {
                       alert("貴様は先生ではなかろうに");  
                     }
-                    Teacherpass.value = null;
+                    Teacherpass.value = "";
                 }
 
 
