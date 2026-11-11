@@ -246,6 +246,10 @@
                         {
                             Fnump=Math.floor(Math.random()*6);
                         }
+                        if(i>3)
+                        {
+                            Fnump+=10;
+                        }
                         Fnumpkeep[i]=Fnump;
                         FrontCAd[i][1]=Fnump;
                         FrontCAd[i][0]=FNum[i];
@@ -259,9 +263,9 @@
                     let arcount=0;
                     for(let i = 0;i<gyou;i++)
                     {
-                        if(i==0||i==gyou-1)
+                        if(i==0||i==gyou-1||i==1)
                         {
-                            if(i==0)
+                            if(i==0||i==1)
                             {
                                 for(let l=1;l<line-1;l++)
                                 {
@@ -272,7 +276,7 @@
                                             cad=p;
                                         }
                                     }
-                                    if(FrontCAd[cad][1]==l)
+                                    if(FrontCAd[cad][1]==l||FrontCAd[cad][1]-10==l)
                                     {
                                         c[i][l]=FrontCAd[cad][0];
                                         console.log(`c[${i}][${l}]=${FrontCAd[cad][0]}`);
@@ -308,6 +312,10 @@
                             for(let j = 0;j<line-1;j++)
                             {
                                 if(Fnumpkeep.includes(j)&&i==0)
+                                {
+                                    
+                                }
+                                else if(Fnumpkeep.includes(j+10))
                                 {
                                     
                                 }
